@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row h-100">
+        <div class="row">
             <div class="col-md-2 p-0">
                 @include('layouts.sidebar') <!-- Include the sidebar -->
             </div>
