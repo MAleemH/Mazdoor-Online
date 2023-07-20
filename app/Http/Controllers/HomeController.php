@@ -41,4 +41,24 @@ class HomeController extends Controller
                 return view('home_default'); // A default view in case the user's role doesn't match any of the above.
         }
     }
+
+    public function profile()
+    {
+        return view('profile');
+    }
+
+    public function categories()
+    {
+        return view('categories');
+    }
+
+    public function availableJobs()
+    {
+        return view('available_jobs');
+    }
+
+    public function postJob()
+    {
+        return view('post_job');
+    }
 }
