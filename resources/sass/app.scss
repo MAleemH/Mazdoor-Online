@@ -6,3 +6,34 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+// sidebar
+
+.sidebar {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: gray;
+    padding: 10px;
+}
+
+.sidebar a:hover {
+    background-color: yellow;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+// right side
+
+.data-container {
+    height: 100%;
+    background-color: #fff;
+    margin: 10px;
+    border-radius: 5px;
+    padding: 5px;
+}
