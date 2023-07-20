@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\WorkCategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +21,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
-Route::get('/categories', [HomeController::class, 'categories'])->name('categories')->middleware('role:admin');
+// Route::get('/categories', [HomeController::class, 'categories'])->name('categories')->middleware('role:admin');
 Route::get('/available_jobs', [HomeController::class, 'availableJobs'])->name('available_jobs')->middleware('role:labour');
 Route::get('/post_job', [HomeController::class, 'postJob'])->name('post_job')->middleware('role:employer');
+// work category
+Route::get('/work_categories', [WorkCategoryController::class, 'index'])->name('work_categories.index');
+Route::get('/work_categories/create', [WorkCategoryController::class, 'create'])->name('work_categories.create');
+Route::post('/work_categories', [WorkCategoryController::class, 'store'])->name('work_categories.store');

@@ -4,7 +4,7 @@
 
     @if (auth()->user()->role === 'admin')
         <!-- Categories button (Admin only) -->
-        <a href="{{ route('categories') }}">Categories</a>
+        <a href="{{ route('work_categories.index') }}">Categories</a>
     @endif
 
     @if (auth()->user()->role === 'labour')
