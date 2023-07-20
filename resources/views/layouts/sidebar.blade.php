@@ -1,6 +1,6 @@
 <div class="sidebar">
     <!-- Profile button -->
-    <a href="{{ route('profile') }}">Profile</a>
+    <a href="{{ route('profile.profile') }}">Profile</a>
 
     @if (auth()->user()->role === 'admin')
         <!-- Categories button (Admin only) -->
