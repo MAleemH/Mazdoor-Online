@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\WorkCategoryController;
 use App\Http\Controllers\ProfileController;
 /*
@@ -31,3 +32,6 @@ Route::get('/work_categories/create', [WorkCategoryController::class, 'create'])
 Route::post('/work_categories', [WorkCategoryController::class, 'store'])->name('work_categories.store');
 // profile
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile.profile');
+// approve or reject user account
+Route::get('/pending_accounts', [HomeController::class, 'homeAdmin'])->name('pending_accounts');
+Route::post('/admin/approve-reject/{userId}/{action}', [HomeController::class, 'approveReject'])->name('admin.approveReject');

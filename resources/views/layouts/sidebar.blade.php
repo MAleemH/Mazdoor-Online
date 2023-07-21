@@ -5,6 +5,7 @@
     @if (auth()->user()->role === 'admin')
         <!-- Categories button (Admin only) -->
         <a href="{{ route('work_categories.index') }}">Categories</a>
+        <a href="{{ route('pending_accounts') }}">Approve Accounts</a>
     @endif
 
     @if (auth()->user()->role === 'labour')
