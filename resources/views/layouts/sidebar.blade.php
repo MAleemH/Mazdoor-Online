@@ -3,18 +3,19 @@
     <a href="{{ route('profile.profile') }}">Profile</a>
 
     @if (auth()->user()->role === 'admin')
-        <!-- Categories button (Admin only) -->
+        <!-- (Admin only) -->
         <a href="{{ route('work_categories.index') }}">Categories</a>
         <a href="{{ route('pending_accounts') }}">Approve Accounts</a>
     @endif
 
     @if (auth()->user()->role === 'labour')
-        <!-- Available jobs (Labour only) -->
+        <!-- (Labour only) -->
         <a href="{{ route('available_jobs') }}">Available Jobs</a>
     @endif
 
     @if (auth()->user()->role === 'employer')
-        <!-- Post a job (Employer only) -->
+        <!-- (Employer only) -->
+        <a href="{{ route('viewCategory') }}">View/Update Category</a>
         <a href="{{ route('post_job') }}">Post a Job</a>
     @endif
 </div>

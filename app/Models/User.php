@@ -23,7 +23,14 @@ class User extends Authenticatable
         'password',
         'role',
         'status',
+        'employer_category_id',
     ];
+
+    // Add the relationship to EmployerCategory
+    public function employerCategories()
+    {
+        return $this->hasOne(EmployerCategory::class, 'user_id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

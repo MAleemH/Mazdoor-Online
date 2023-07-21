@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 
+use App\Models\EmployerCategory;
+
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -81,14 +83,25 @@ class HomeController extends Controller
         return back()->with('success', 'Account status updated.');
     }
 
-    public function profile()
+    public function viewCategory()
     {
-        return view('profile');
+        $user = Auth::user();
+        $category = $user->employerCategories ? $user->employerCategories->category : null;
+        return view('employer_category', compact('user', 'category'));
     }
 
-    public function categories()
+    public function updateCategory(Request $request)
     {
-        return view('categories');
+        $user = Auth::user();
+        $category = $request->input('category');
+
+        if ($user->employerCategories) {
+            $user->employerCategories->update(['category' => $category]);
+        } else {
+            $user->employerCategories()->create(['category' => $category]);
+        }
+
+        return redirect()->route('viewCategory')->with('success', 'Category updated successfully!');
     }
 
     public function availableJobs()

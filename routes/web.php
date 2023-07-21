@@ -35,3 +35,6 @@ Route::get('/profile', [ProfileController::class, 'index'])->name('profile.profi
 // approve or reject user account
 Route::get('/pending_accounts', [HomeController::class, 'homeAdmin'])->name('pending_accounts');
 Route::post('/admin/approve-reject/{userId}/{action}', [HomeController::class, 'approveReject'])->name('admin.approveReject');
+// employer category
+Route::get('/employer-category', [HomeController::class, 'viewCategory'])->name('viewCategory');
+Route::post('/update-category', [HomeController::class, 'updateCategory'])->name('updateCategory');
