@@ -16,40 +16,58 @@
                         <a href="{{ route('jobs.create') }}" class="btn btn-primary">Add New Job</a>
                         @endif
                     </div>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr class="text-center">
-                                <th scope="col">#</th>
-                                <th scope="col">Title</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Rate</th>
-                                <th scope="col">If Flat Rate</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Posted By</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (count($jobs) > 0)
-                                @foreach ($jobs as $job)
-                                    <tr>
-                                        <th scope="row">{{ $job->id }}</th>
-                                        <td>{{ $job->title }}</td>
-                                        <td>{{ $job->description }}</td>
-                                        <td>{{ $job->rate }}</td>
-                                        @if($job->flat_rate)
-                                            <td>Rs. {{ $job->flat_rate }}</td>
-                                        @else
-                                            <td>Nil</td>
-                                        @endif
-                                        <td>{{ $job->status }}</td>
-                                        <td>{{ $job->user->name }}</td>
-                                    </tr>
-                                @endforeach
-                            @else
-                                <p>No available jobs at the moment.</p>
-                            @endif
-                        </tbody>
-                    </table>
+                    <!-- display jobs to employer -->
+                    @if (auth()->user()->role === 'employer')
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="text-center">
+                                    <th scope="col">#</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Rate</th>
+                                    <th scope="col">If Flat Rate</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Posted By</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (count($jobs) > 0)
+                                    @foreach ($jobs as $job)
+                                        <tr>
+                                            <th scope="row">{{ $job->id }}</th>
+                                            <td>{{ $job->title }}</td>
+                                            <td>{{ $job->description }}</td>
+                                            <td>{{ $job->rate }}</td>
+                                            @if($job->flat_rate)
+                                                <td>Rs. {{ $job->flat_rate }}</td>
+                                            @else
+                                                <td>Nil</td>
+                                            @endif
+                                            <td>{{ $job->status }}</td>
+                                            <td>{{ $job->user->name }}</td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <p>No available jobs at the moment.</p>
+                                @endif
+                            </tbody>
+                        </table>
+                    @endif
+                    <!-- display jobs to labour -->
+                    @if (count($jobs) > 0)
+                        <ul>
+                            @foreach ($jobs as $job)
+                            <li>
+                                <h4>{{ $job->title }}</h4>
+                                <p>{{ $job->description }}</p>
+                                <p>Posted By: {{ $job->user->name }}</p>
+                                <!-- Add any other job details you want to display -->
+                            </li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <p>No available jobs at the moment.</p>
+                    @endif
                 </div>
             </div>
         </div>
