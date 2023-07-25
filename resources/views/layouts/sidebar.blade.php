@@ -10,7 +10,7 @@
 
     @if (auth()->user()->role === 'labour')
         <!-- (Labour only) -->
-        <a href="">Portfolio</a>
+        <a href="{{ route('portfolios.index') }}">Portfolio</a>
         <a href="{{ route('jobs.index') }}">Available Jobs</a>
     @endif
 
