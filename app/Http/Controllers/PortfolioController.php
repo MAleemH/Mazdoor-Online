@@ -4,55 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Portfolio;
+use Illuminate\Support\Facades\Auth;
 
 class PortfolioController extends Controller
 {
-    /**
-     * Show the labor's portfolio.
-     *
-     * @param  \App\Models\Portfolio  $portfolio
-     * @return \Illuminate\View\View
-     */
-    public function show(Portfolio $portfolio)
+    public function index()
     {
-        return view('portfolios.show', compact('portfolio'));
+        $portfolios = Portfolio::where('user_id', Auth::id())->get();
+        return view('portfolios.index', compact('portfolios'));
     }
-    /**
-     * Display the labor's portfolio if it exists or show the create form otherwise.
-     *
-     * @return \Illuminate\View\View
-     */
+
     public function create()
     {
-        $user = auth()->user();
-
-        // Check if the labor already has a portfolio
-        $portfolio = Portfolio::where('user_id', $user->id)->first();
-
-        // If the portfolio exists, redirect to the update form
-        if ($portfolio) {
-            return redirect()->route('portfolios.edit', $portfolio->id);
-        }
-
         return view('portfolios.create');
     }
 
-    /**
-     * Show the form for creating a new portfolio.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function createForm()
-    {
-        return view('portfolios.create');
-    }
-
-    /**
-     * Store a newly created portfolio in the database.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -60,45 +26,44 @@ class PortfolioController extends Controller
             'description' => 'required|string',
         ]);
 
+        // Create a new portfolio record
         Portfolio::create([
-            'user_id' => auth()->id(),
+            'user_id' => Auth::id(),
             'specialization' => $request->input('specialization'),
             'description' => $request->input('description'),
         ]);
 
-        return redirect()->route('portfolios.create')->with('success', 'Portfolio created successfully!');
+        return redirect()->route('portfolios.index')->with('success', 'Portfolio created successfully!');
     }
 
-    /**
-     * Show the form for updating the labor's portfolio.
-     *
-     * @param  \App\Models\Portfolio  $portfolio
-     * @return \Illuminate\View\View
-     */
     public function edit(Portfolio $portfolio)
     {
+        // Check if the portfolio belongs to the authenticated user
+        if ($portfolio->user_id !== Auth::id()) {
+            return redirect()->route('portfolios.index')->with('error', 'You are not authorized to edit this portfolio.');
+        }
+
         return view('portfolios.edit', compact('portfolio'));
     }
 
-    /**
-     * Update the specified portfolio in the database.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Portfolio  $portfolio
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Portfolio $portfolio)
     {
+        // Check if the portfolio belongs to the authenticated user
+        if ($portfolio->user_id !== Auth::id()) {
+            return redirect()->route('portfolios.index')->with('error', 'You are not authorized to update this portfolio.');
+        }
+
         $request->validate([
             'specialization' => 'required|string|max:255',
             'description' => 'required|string',
         ]);
 
+        // Update the portfolio record
         $portfolio->update([
             'specialization' => $request->input('specialization'),
             'description' => $request->input('description'),
         ]);
 
-        return redirect()->route('portfolios.edit', $portfolio->id)->with('success', 'Portfolio updated successfully!');
+        return redirect()->route('portfolios.index')->with('success', 'Portfolio updated successfully!');
     }
 }
