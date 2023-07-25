@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\WorkCategoryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PortfolioController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,3 +44,11 @@ Route::get('/jobs', [HomeController::class, 'jobs'])->name('jobs.index');
 Route::get('/jobs/create', [HomeController::class, 'createJob'])->name('jobs.create');
 Route::post('/jobs', [HomeController::class, 'storeJob'])->name('jobs.store');
 Route::get('/jobs/{job}', [HomeController::class, 'jobDetails'])->name('jobs.show');
+// portfolio
+Route::middleware(['auth'])->group(function () {
+    Route::get('/portfolios', [PortfolioController::class, 'index'])->name('portfolios.index');
+    Route::get('/portfolios/create', [PortfolioController::class, 'create'])->name('portfolios.create');
+    Route::post('/portfolios', [PortfolioController::class, 'store'])->name('portfolios.store');
+    Route::get('/portfolios/{portfolio}/edit', [PortfolioController::class, 'edit'])->name('portfolios.edit');
+    Route::put('/portfolios/{portfolio}', [PortfolioController::class, 'update'])->name('portfolios.update');
+});
