@@ -6,6 +6,8 @@ use App\Models\User;
 
 use App\Models\EmployerCategory;
 
+use App\Models\Job;
+
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -104,13 +106,49 @@ class HomeController extends Controller
         return redirect()->route('viewCategory')->with('success', 'Category updated successfully!');
     }
 
-    public function availableJobs()
+    public function jobs()
     {
-        return view('available_jobs');
+        // Fetch all available jobs
+        $jobs = Job::where('status', 'available')->get();
+        return view('view_jobs', compact('jobs'));
     }
 
-    public function postJob()
+    public function createJob()
     {
-        return view('post_job');
+        return view('create_jobs');
     }
+
+    public function storeJob(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'rate' => 'required|in:flat,bidding',
+            'flat_rate' => 'required_if:rate,flat|numeric',
+        ]);
+
+        // Create a new job record
+        $job = Job::create([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'rate' => $request->input('rate'),
+            'flat_rate' => $request->input('rate') === 'flat' ? $request->input('flat_rate') : null,
+            'user_id' => auth()->id(),
+        ]);
+
+        // If the rate is 'flat', save the 'Flat Rate' value in the database
+        if ($request->input('rate') === 'flat') {
+            $job->flat_rate = $request->input('flat_rate');
+            $job->save();
+        }
+
+        // Redirect to the show page of the newly created job
+        return redirect()->route('jobs.show', $job->id)->with('success', 'Job created successfully!');
+    }
+
+    public function jobDetails(Job $job)
+    {
+        return view('job_details', compact('job'));
+    }
+
 }

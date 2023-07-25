@@ -24,8 +24,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
 // Route::get('/categories', [HomeController::class, 'categories'])->name('categories')->middleware('role:admin');
-Route::get('/available_jobs', [HomeController::class, 'availableJobs'])->name('available_jobs')->middleware('role:labour');
-Route::get('/post_job', [HomeController::class, 'postJob'])->name('post_job')->middleware('role:employer');
+// Route::get('/available_jobs', [HomeController::class, 'availableJobs'])->name('available_jobs')->middleware('role:labour');
+// Route::get('/post_job', [HomeController::class, 'postJob'])->name('post_job')->middleware('role:employer');
 // work category
 Route::get('/work_categories', [WorkCategoryController::class, 'index'])->name('work_categories.index');
 Route::get('/work_categories/create', [WorkCategoryController::class, 'create'])->name('work_categories.create');
@@ -38,3 +38,8 @@ Route::post('/admin/approve-reject/{userId}/{action}', [HomeController::class, '
 // employer category
 Route::get('/employer-category', [HomeController::class, 'viewCategory'])->name('viewCategory');
 Route::post('/update-category', [HomeController::class, 'updateCategory'])->name('updateCategory');
+// jobs
+Route::get('/jobs', [HomeController::class, 'jobs'])->name('jobs.index');
+Route::get('/jobs/create', [HomeController::class, 'createJob'])->name('jobs.create');
+Route::post('/jobs', [HomeController::class, 'storeJob'])->name('jobs.store');
+Route::get('/jobs/{job}', [HomeController::class, 'jobDetails'])->name('jobs.show');

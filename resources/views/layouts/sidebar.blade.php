@@ -10,12 +10,12 @@
 
     @if (auth()->user()->role === 'labour')
         <!-- (Labour only) -->
-        <a href="{{ route('available_jobs') }}">Available Jobs</a>
+        <a href="">Available Jobs</a>
     @endif
 
     @if (auth()->user()->role === 'employer')
         <!-- (Employer only) -->
         <a href="{{ route('viewCategory') }}">View/Update Category</a>
-        <a href="{{ route('post_job') }}">Post a Job</a>
+        <a href="{{ route('jobs.index') }}">Jobs</a>
     @endif
 </div>

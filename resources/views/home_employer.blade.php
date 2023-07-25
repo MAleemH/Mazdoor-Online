@@ -9,7 +9,7 @@
             <div class="col-md-10 p-0">
                 <!-- Your user-specific content here -->
                 <div class="data-container">
-                    Welcome {{ auth()->user()->name }}
+                    <h3>Welcome {{ auth()->user()->name }}</h3>
                 </div>
             </div>
         </div>

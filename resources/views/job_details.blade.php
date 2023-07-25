@@ -9,7 +9,10 @@
             <div class="col-md-10 p-0">
                 <!-- Your user-specific content here -->
                 <div class="data-container">
-                    <h3>Welcome {{ auth()->user()->name }}</h3>
+                    <h3>Job Details</h3>
+                    <h4>{{ $job->title }}</h4>
+                    <p>{{ $job->description }}</p>
+                    <!-- Add any other job details you want to display -->
                 </div>
             </div>
         </div>
