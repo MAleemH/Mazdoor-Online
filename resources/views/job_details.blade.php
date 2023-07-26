@@ -10,6 +10,17 @@
                 <!-- Your user-specific content here -->
                 <div class="data-container">
                     <h3>Job Details</h3>
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if(session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <h4>{{ $job->title }}</h4>
                     <p>Posted By: {{ $job->user->name }}</p>
                     <div class='d-flex flex-column mb-3'>
