@@ -28,6 +28,7 @@
                                     <th scope="col">If Flat Rate</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Posted By</th>
+                                    <th scope="col">Poroposals</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -45,6 +46,7 @@
                                             @endif
                                             <td>{{ $job->status }}</td>
                                             <td>{{ $job->user->name }}</td>
+                                            <td><a href="{{ route('jobs.proposals', $job->id) }}" class="btn btn-primary">View</a></td>
                                         </tr>
                                     @endforeach
                                 @else
@@ -52,21 +54,22 @@
                                 @endif
                             </tbody>
                         </table>
-                    @endif
-                    <!-- display jobs to labour -->
-                    @if (count($jobs) > 0)
-                        <ul>
-                            @foreach ($jobs as $job)
-                            <li>
-                                <h4><a href="{{ route('jobs.show', $job->id) }}">{{ $job->title }}</a></h4>
-                                <p>{{ $job->description }}</p>
-                                <p>Posted By: {{ $job->user->name }}</p>
-                                <!-- Add any other job details you want to display -->
-                            </li>
-                            @endforeach
-                        </ul>
                     @else
-                        <p>No available jobs at the moment.</p>
+                        <!-- display jobs to labour -->
+                        @if (count($jobs) > 0)
+                            <ul>
+                                @foreach ($jobs as $job)
+                                <li>
+                                    <h4><a href="{{ route('jobs.show', $job->id) }}">{{ $job->title }}</a></h4>
+                                    <p>{{ $job->description }}</p>
+                                    <p>Posted By: {{ $job->user->name }}</p>
+                                    <!-- Add any other job details you want to display -->
+                                </li>
+                                @endforeach
+                            </ul>
+                        @else
+                            <p>No available jobs at the moment.</p>
+                        @endif
                     @endif
                 </div>
             </div>
