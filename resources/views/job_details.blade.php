@@ -11,8 +11,22 @@
                 <div class="data-container">
                     <h3>Job Details</h3>
                     <h4>{{ $job->title }}</h4>
+                    <p>Posted By: {{ $job->user->name }}</p>
+                    <div class='d-flex flex-column mb-3'>
+                        <small>Rate: {{ $job->rate }}</small>
+                        @if($job->rate === 'flat')
+                            <small>Rs. {{ $job->flat_rate }}</small>
+                        @endif
+                        <!-- display buttons to labour -->
+                        @if(auth()->user()->role === 'labour')
+                            @if($job->rate === 'bidding')
+                                <button class='btn btn-primary p-0' style='width: 80px; height: 25px;'>Place Bid</button>
+                            @else
+                                <button class='btn btn-primary p-0' style='width: 120px; height: 25px;'>Submit Proposal</button>
+                            @endif
+                        @endif
+                    </div>
                     <p>{{ $job->description }}</p>
-                    <!-- Add any other job details you want to display -->
                 </div>
             </div>
         </div>

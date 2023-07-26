@@ -58,7 +58,7 @@
                         <ul>
                             @foreach ($jobs as $job)
                             <li>
-                                <h4>{{ $job->title }}</h4>
+                                <h4><a href="{{ route('jobs.show', $job->id) }}">{{ $job->title }}</a></h4>
                                 <p>{{ $job->description }}</p>
                                 <p>Posted By: {{ $job->user->name }}</p>
                                 <!-- Add any other job details you want to display -->
