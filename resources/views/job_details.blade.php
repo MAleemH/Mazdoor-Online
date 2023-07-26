@@ -20,9 +20,9 @@
                         <!-- display buttons to labour -->
                         @if(auth()->user()->role === 'labour')
                             @if($job->rate === 'bidding')
-                                <button class='btn btn-primary p-0' style='width: 80px; height: 25px;'>Place Bid</button>
+                                <a href="{{ route('proposals.create', $job->id) }}" class='btn btn-primary p-0' style='width: 80px; height: 25px;'>Place Bid</a>
                             @else
-                                <button class='btn btn-primary p-0' style='width: 120px; height: 25px;'>Submit Proposal</button>
+                                <a href="{{ route('proposals.create', $job->id) }}" class='btn btn-primary p-0' style='width: 120px; height: 25px;'>Submit Proposal</a>
                             @endif
                         @endif
                     </div>

@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\WorkCategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\ProposalController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,3 +53,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/portfolios/{portfolio}/edit', [PortfolioController::class, 'edit'])->name('portfolios.edit');
     Route::put('/portfolios/{portfolio}', [PortfolioController::class, 'update'])->name('portfolios.update');
 });
+// proposals
+Route::get('/proposals/create/{job}', [ProposalController::class, 'create'])->name('proposals.create');
+Route::post('/proposals', [ProposalController::class, 'store'])->name('proposals.store');
