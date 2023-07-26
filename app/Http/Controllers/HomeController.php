@@ -8,6 +8,8 @@ use App\Models\EmployerCategory;
 
 use App\Models\Job;
 
+use App\Models\Proposal;
+
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -124,7 +126,7 @@ class HomeController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'rate' => 'required|in:flat,bidding',
-            'flat_rate' => 'required_if:rate,flat|numeric',
+            'flat_rate' => 'required_if:rate,flat|nullable|numeric',
         ]);
 
         // Create a new job record
@@ -149,6 +151,14 @@ class HomeController extends Controller
     public function jobDetails(Job $job)
     {
         return view('job_details', compact('job'));
+    }
+
+    public function showProposals($jobId)
+    {
+        $job = Job::findOrFail($jobId);
+        $proposals = Proposal::where('job_id', $job->id)->get();
+
+        return view('proposals', compact('job', 'proposals'));
     }
 
 }
