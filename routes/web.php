@@ -45,6 +45,7 @@ Route::get('/jobs', [HomeController::class, 'jobs'])->name('jobs.index');
 Route::get('/jobs/create', [HomeController::class, 'createJob'])->name('jobs.create');
 Route::post('/jobs', [HomeController::class, 'storeJob'])->name('jobs.store');
 Route::get('/jobs/{job}', [HomeController::class, 'jobDetails'])->name('jobs.show');
+Route::delete('/jobs/{job}', [HomeController::class, 'deleteJob'])->name('jobs.delete');
 Route::get('/jobs/{job}/proposals', [HomeController::class, 'showProposals'])->name('jobs.proposals');
 // portfolio
 Route::middleware(['auth'])->group(function () {

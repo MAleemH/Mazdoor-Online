@@ -16,8 +16,19 @@
                         <a href="{{ route('jobs.create') }}" class="btn btn-primary">Add New Job</a>
                         @endif
                     </div>
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if(session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <!-- display jobs to employer -->
-                    @if (auth()->user()->role === 'employer')
+                    @if (auth()->user()->role === 'employer' || auth()->user()->role === 'admin')
                         <table class="table table-hover">
                             <thead>
                                 <tr class="text-center">
@@ -28,7 +39,11 @@
                                     <th scope="col">If Flat Rate</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Posted By</th>
-                                    <th scope="col">Poroposals</th>
+                                    @if(auth()->user()->role === 'employer')
+                                        <th scope="col">Poroposals</th>
+                                    @else
+                                        <th scope="col">Delete</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,7 +61,17 @@
                                             @endif
                                             <td>{{ $job->status }}</td>
                                             <td>{{ $job->user->name }}</td>
-                                            <td><a href="{{ route('jobs.proposals', $job->id) }}" class="btn btn-primary">View</a></td>
+                                            <td>
+                                                @if(auth()->user()->role === 'employer')
+                                                    <a href="{{ route('jobs.proposals', $job->id) }}" class="btn btn-primary">View</a>
+                                                @else
+                                                    <form method="POST" action="{{ route('jobs.delete', $job->id) }}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                    </form>
+                                                @endif
+                                            </td>
                                         </tr>
                                     @endforeach
                                 @else

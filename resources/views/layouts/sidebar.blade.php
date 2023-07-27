@@ -6,6 +6,7 @@
         <!-- (Admin only) -->
         <a href="{{ route('work_categories.index') }}">Categories</a>
         <a href="{{ route('pending_accounts') }}">Approve Accounts</a>
+        <a href="{{ route('jobs.index') }}">Jobs</a>
     @endif
 
     @if (auth()->user()->role === 'labour')

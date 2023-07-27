@@ -155,6 +155,20 @@ class HomeController extends Controller
         return view('job_details', compact('job'));
     }
 
+    public function deleteJob(Job $job)
+    {
+        // Check if the authenticated user is an admin
+        if (Auth::user()->role === 'admin') {
+            // Delete the job
+            $job->delete();
+
+            return redirect()->route('jobs.index')->with('success', 'Job deleted successfully.');
+        }
+
+        // If the user is not an admin, redirect back with an error message
+        return back()->with('error', 'You are not authorized to delete this job.');
+    }
+
     public function showProposals($jobId)
     {
         $job = Job::findOrFail($jobId);
