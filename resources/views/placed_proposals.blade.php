@@ -9,32 +9,29 @@
             <div class="col-md-10 p-0">
                 <!-- Your user-specific content here -->
                 <div class="data-container">
-                    <h3>Proposals for "{{ $job->title }}"</h3>
-                    @if(session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-
-                    @if(session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
+                    <h3>Placed Proposals</h3>
                     @if (count($proposals) > 0)
                         <ul>
                             @foreach ($proposals as $proposal)
                                 <li class="mb-3">
-                                    <h4>Submitted by: {{ $proposal->user->name }}</h4>
-                                    <p>Proposal Text: {{ $proposal->proposal_text }}</p>
-                                    @if ($proposal->job->rate === 'bidding')
-                                        <p>Bid Amount: Rs. {{ $proposal->price }}</p>
+                                    <h4>Job Title: {{ $proposal->job->title }}</h4>
+
+                                    <small>Rate: {{ $proposal->job->rate }}</small> <br>
+
+                                    @if($proposal->job->rate === 'flat')
+                                        <small>Rs. {{ $proposal->job->flat_rate }}</small>
                                     @endif
+                                    
+                                    @if ($proposal->job->rate === 'bidding')
+                                        <small>Bid Amount: Rs. {{ $proposal->price }}</small>
+                                    @endif
+
+                                    <p>Proposal Text: {{ $proposal->proposal_text }}</p>
                                 </li>
                             @endforeach
                         </ul>
                     @else
-                        <p>No proposals for this job yet.</p>
+                        <p>No placed proposals yet.</p>
                     @endif
                 </div>
             </div>

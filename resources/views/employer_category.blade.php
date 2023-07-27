@@ -10,7 +10,17 @@
                 <!-- Your user-specific content here -->
                 <div class="data-container">
                     <h3>Employer Category</h3>
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
 
+                    @if(session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <p>Category: {{ $category ?? 'N/A' }}</p>
 
                     <form action="{{ route('updateCategory') }}" method="POST">

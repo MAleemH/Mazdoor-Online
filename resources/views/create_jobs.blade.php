@@ -10,6 +10,17 @@
                 <!-- Your user-specific content here -->
                 <div class="data-container">
                     <h3>Create a New Job</h3>
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if(session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <form method="POST" action="{{ route('jobs.store') }}">
                         @csrf
                         <div class="mb-3">

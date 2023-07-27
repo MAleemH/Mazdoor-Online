@@ -161,4 +161,12 @@ class HomeController extends Controller
         return view('proposals', compact('job', 'proposals'));
     }
 
+    public function placedProposals()
+    {
+        $user = auth()->user();
+        $proposals = Proposal::where('user_id', $user->id)->get();
+
+        return view('placed_proposals', compact('proposals'));
+    }
+
 }

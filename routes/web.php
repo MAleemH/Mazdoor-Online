@@ -57,3 +57,4 @@ Route::middleware(['auth'])->group(function () {
 // proposals
 Route::get('/proposals/create/{job}', [ProposalController::class, 'create'])->name('proposals.create');
 Route::post('/proposals', [ProposalController::class, 'store'])->name('proposals.store');
+Route::get('/proposals', [HomeController::class, 'placedProposals'])->name('proposals.placed');

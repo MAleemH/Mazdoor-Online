@@ -12,6 +12,7 @@
         <!-- (Labour only) -->
         <a href="{{ route('portfolios.index') }}">Portfolio</a>
         <a href="{{ route('jobs.index') }}">Available Jobs</a>
+        <a href="{{ route('proposals.placed') }}">Placed Proposals</a>
     @endif
 
     @if (auth()->user()->role === 'employer')
