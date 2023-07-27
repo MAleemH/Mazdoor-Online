@@ -51,4 +51,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function givenRatings()
+    {
+        return $this->hasMany(Rating::class, 'from_user_id');
+    }
+
+    public function receivedRatings()
+    {
+        return $this->hasMany(Rating::class, 'to_user_id');
+    }
 }

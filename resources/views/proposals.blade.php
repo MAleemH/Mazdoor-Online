@@ -25,7 +25,7 @@
                         <ul>
                             @foreach ($proposals as $proposal)
                                 <li class="mb-3">
-                                    <h4>Submitted by: {{ $proposal->user->name }}</h4>
+                                    <h4>Submitted by: <a href="{{ route('users.rate', $proposal->user->id) }}">{{ $proposal->user->name }}</a></h4>
                                     <p>Proposal Text: {{ $proposal->proposal_text }}</p>
                                     @if ($proposal->job->rate === 'bidding')
                                         <p>Bid Amount: Rs. {{ $proposal->price }}</p>

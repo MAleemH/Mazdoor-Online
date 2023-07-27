@@ -13,7 +13,19 @@
                     <div>
                         <strong>Name:</strong> {{ auth()->user()->name }} <br>
                         <strong>Email:</strong> {{ auth()->user()->email }} <br>
-                        <strong>Role:</strong> {{ auth()->user()->role }}
+                        <strong>Role:</strong> {{ auth()->user()->role }} <br>
+                        
+                        @if (auth()->user()->role === 'employer' || auth()->user()->role === 'labour')
+                            <strong>Rating:</strong>
+                            @php
+                                $receivedRatings = auth()->user()->receivedRatings->avg('rating');
+                            @endphp
+                            @if ($receivedRatings)
+                                {{ number_format($receivedRatings, 1) }}/5.0
+                            @else
+                                No ratings yet
+                            @endif
+                        @endif
                     </div>
                 </div>
             </div>

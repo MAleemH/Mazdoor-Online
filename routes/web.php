@@ -58,3 +58,6 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/proposals/create/{job}', [ProposalController::class, 'create'])->name('proposals.create');
 Route::post('/proposals', [ProposalController::class, 'store'])->name('proposals.store');
 Route::get('/proposals', [HomeController::class, 'placedProposals'])->name('proposals.placed');
+// ratings
+Route::get('/users/{user}/rate', [HomeController::class, 'giveRating'])->name('users.rate');
+Route::post('/ratings', [HomeController::class, 'storeRating'])->name('ratings.store');

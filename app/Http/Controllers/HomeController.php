@@ -10,6 +10,8 @@ use App\Models\Job;
 
 use App\Models\Proposal;
 
+use App\Models\Rating;
+
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -169,4 +171,38 @@ class HomeController extends Controller
         return view('placed_proposals', compact('proposals'));
     }
 
+    public function giveRating(User $user)
+    {
+        return view('give_rating', compact('user'));
+    }
+
+    public function storeRating(Request $request)
+    {
+        $request->validate([
+            'to_user_id' => 'required|integer|exists:users,id',
+            'rating' => 'required|integer|min:1|max:5',
+            'review' => 'required|string',
+        ]);
+
+        // Check if the current user has already rated the target user
+        $existingRating = Rating::where('from_user_id', auth()->user()->id)
+            ->where('to_user_id', $request->input('to_user_id'))
+            ->first();
+
+        if ($existingRating) {
+            return back()->with('error', 'You have already rated this user.');
+        }
+
+        // Save the rating and review in the database
+        Rating::create([
+            'from_user_id' => auth()->user()->id,
+            'to_user_id' => $request->input('to_user_id'),
+            'rating' => $request->input('rating'),
+            'review' => $request->input('review'),
+        ]);
+
+        // Redirect back to the user's profile page with a success message
+        return back()->with('success', 'Rating submitted successfully.');
+    }
+    
 }
