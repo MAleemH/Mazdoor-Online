@@ -18,8 +18,24 @@ use App\Http\Controllers\ProposalController;
 */
 
 Route::get('/', function () {
-    return view('/auth/login');
-});
+    return view('home');
+})->name('welcome');
+
+Route::get('/public_jobs', function () {
+    return view('jobs');
+})->name('jobs');
+
+Route::get('/labours', function () {
+    return view('labours');
+})->name('labours');
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
 
 Auth::routes();
 

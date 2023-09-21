@@ -1,0 +1,30 @@
+/* navbar */
+.nav-menu {
+    margin-left: 300px;
+}
+
+/* main */
+
+main {
+    min-height: 70vh;
+}
+
+/* homepage */
+
+.carousel,
+.carousel-inner {
+    height: 700px;
+}
+
+.carousel-item img {
+    height: 700px;
+    background-size: cover;
+    background-position: center;
+}
+
+/* about */
+
+.about-cards {
+    width: 150px;
+    background-color: #fff;
+}
